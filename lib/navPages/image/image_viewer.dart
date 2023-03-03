@@ -22,8 +22,12 @@ class _ImageViewState extends State<ImageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Expanded(
-          child: Container(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: Colors.black),
+        elevation: 0,
+      ),
+      body: Container(
         decoration: BoxDecoration(
           color: Colors.grey,
           image: DecorationImage(
@@ -33,33 +37,39 @@ class _ImageViewState extends State<ImageView> {
             ),
           ),
         ),
-      )),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: List.generate(buttons.length, (index) {
-          return FloatingActionButton(
-            heroTag: '$index',
-            onPressed: () {
-              switch (index) {
-                case 0:
-                  log('share');
-                  FlutterNativeApi.shareImage(widget.image.path);
-                  break;
-                case 1:
-                  log('download');
-                  ImageGallerySaver.saveFile(widget.image.path).then((value) => {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Image saved')))
-                  });
-                  break;
-                case 2:
-                  log('print');
-                  FlutterNativeApi.printImage(widget.image.path, widget.image.path.split('/').last);
-                  break;
-              }
-            },
-            child: buttons[index],
-          );
-        }),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(left: 25),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: List.generate(buttons.length, (index) {
+            return FloatingActionButton(
+              heroTag: '$index',
+              onPressed: () {
+                switch (index) {
+                  case 0:
+                    log('share');
+                    FlutterNativeApi.shareImage(widget.image.path);
+                    break;
+                  case 1:
+                    log('download');
+                    ImageGallerySaver.saveFile(widget.image.path)
+                        .then((value) => {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Image saved')))
+                            });
+                    break;
+                  case 2:
+                    log('print');
+                    FlutterNativeApi.printImage(
+                        widget.image.path, widget.image.path.split('/').last);
+                    break;
+                }
+              },
+              child: buttons[index],
+            );
+          }),
+        ),
       ),
     );
   }

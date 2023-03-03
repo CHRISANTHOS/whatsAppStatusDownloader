@@ -16,15 +16,19 @@ class GetStatusModel extends ChangeNotifier{
 
 
   void getStatus(String fileExt)async{
-    final permission = await Permission.storage.request();
 
-    if(permission.isDenied){
-      Permission.storage.request();
-      log('Access Denied');
-      return;
-    }
-    if(permission.isGranted){
-      final directory = Directory(Constants.WHATSAPP_PATH);
+    //Use this when implementing on Android <11
+    // final permission = await Permission.storage.request();
+
+    Map<Permission, PermissionStatus> result = await [
+      Permission.storage,
+      Permission.manageExternalStorage,
+    ].request();
+
+
+    if(result[Permission.storage] == PermissionStatus.granted &&
+        result[Permission.manageExternalStorage] == PermissionStatus.granted){
+      final directory = Directory(Constants.whatsAppPath);
 
       if(directory.existsSync()){
         final items = directory.listSync();

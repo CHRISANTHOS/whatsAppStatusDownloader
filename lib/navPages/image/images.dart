@@ -12,6 +12,13 @@ class ImagePage extends StatefulWidget {
 
 class _ImagePageState extends State<ImagePage> {
   bool isFetched = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<GetStatusModel>(context, listen: false).getStatus('.jpg');
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +40,8 @@ class _ImagePageState extends State<ImagePage> {
                         onPressed: () {
                           LaunchReview.launch(androidAppId: 'com.whatsapp');
                         },
-                        child: const Text('Download now'),
+                        style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue)),
+                        child: const Text('Download now', style: TextStyle(color: Colors.white),),
                       )
                     ],
                   ),

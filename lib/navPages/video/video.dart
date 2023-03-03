@@ -33,7 +33,8 @@ class _VideoPageState extends State<VideoPage> {
                         onPressed: () {
                           LaunchReview.launch(androidAppId: 'com.whatsapp');
                         },
-                        child: const Text('Download now'),
+                        style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue)),
+                        child: const Text('Download now', style: TextStyle(color: Colors.white),),
                       )
                     ],
                   ),
