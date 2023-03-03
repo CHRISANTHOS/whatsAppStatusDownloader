@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter_native_api/flutter_native_api.dart';
 import 'package:flutter/material.dart';
 import 'image_viewer.dart';
 import 'package:provider/provider.dart';
@@ -23,8 +23,15 @@ class _ImagePageState extends State<ImagePage> {
           });
         }
         return file.isWhatsAppAvailable == false
-            ? const Center(
-                child: Text('No WhatsApp Available'),
+            ? Center(
+                child: Column(
+                  children: [
+                    const Text('No WhatsApp Available'),
+                    TextButton(onPressed: (){
+                      FlutterNativeApi.launchExternalApp('com.whatsapp');
+                    }, child: const Text('Open now'))
+                  ],
+                ),
               )
             : file.getImages.isEmpty
                 ? const Center(
@@ -44,7 +51,7 @@ class _ImagePageState extends State<ImagePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ImageView()));
+                                    builder: (context) => ImageView(image: file.getImages[index],)));
                           },
                           child: Container(
                             decoration: BoxDecoration(
