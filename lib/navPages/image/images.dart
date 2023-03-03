@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:flutter_native_api/flutter_native_api.dart';
+import 'package:launch_review/launch_review.dart';
 import 'package:flutter/material.dart';
 import 'image_viewer.dart';
 import 'package:provider/provider.dart';
@@ -23,16 +23,22 @@ class _ImagePageState extends State<ImagePage> {
           });
         }
         return file.isWhatsAppAvailable == false
-            ? Center(
-                child: Column(
-                  children: [
-                    const Text('No WhatsApp Available'),
-                    TextButton(onPressed: (){
-                      FlutterNativeApi.launchExternalApp('com.whatsapp');
-                    }, child: const Text('Open now'))
-                  ],
+            ? SafeArea(
+              child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('No WhatsApp Available'),
+                      TextButton(
+                        onPressed: () {
+                          LaunchReview.launch(androidAppId: 'com.whatsapp');
+                        },
+                        child: const Text('Download now'),
+                      )
+                    ],
+                  ),
                 ),
-              )
+            )
             : file.getImages.isEmpty
                 ? const Center(
                     child: Text('No images found'),
@@ -51,7 +57,9 @@ class _ImagePageState extends State<ImagePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ImageView(image: file.getImages[index],)));
+                                    builder: (context) => ImageView(
+                                          image: file.getImages[index],
+                                        )));
                           },
                           child: Container(
                             decoration: BoxDecoration(

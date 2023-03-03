@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:launch_review/launch_review.dart';
 import 'video_play.dart';
 import 'package:provider/provider.dart';
 import 'package:whatsapp_downloader/model/get_status_model.dart';
@@ -24,9 +23,22 @@ class _VideoPageState extends State<VideoPage> {
           });
         }
         return file.isWhatsAppAvailable == false
-            ? const Center(
-                child: Text('No Whatsapp Available'),
-              )
+            ? SafeArea(
+              child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('No WhatsApp Available'),
+                      TextButton(
+                        onPressed: () {
+                          LaunchReview.launch(androidAppId: 'com.whatsapp');
+                        },
+                        child: const Text('Download now'),
+                      )
+                    ],
+                  ),
+                ),
+            )
             : file.getVideos.isEmpty
                 ? const Center(
                     child: Text('No Videos'),
