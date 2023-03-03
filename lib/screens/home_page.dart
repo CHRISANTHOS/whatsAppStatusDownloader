@@ -21,13 +21,16 @@ class _HomePageState extends State<HomePage> {
         return Scaffold(
           body: pages[nav.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
-              onTap: (value){
-                nav.changeIndex(value);
-              },
-              items: [
+              items: const[
                 BottomNavigationBarItem(icon: Icon(Icons.image), label: 'image'),
                 BottomNavigationBarItem(icon: Icon(Icons.video_library), label: 'video'),
-              ]
+              ],
+            selectedItemColor: Colors.blueAccent,
+            unselectedItemColor: Colors.grey,
+            currentIndex: nav.currentIndex,
+            onTap: (value){
+              nav.changeIndex(value);
+            },
           ),
         );
       }
