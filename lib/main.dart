@@ -5,7 +5,7 @@ import 'package:whatsapp_downloader/model/bottom_nav_model.dart';
 import 'package:whatsapp_downloader/model/get_status_model.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

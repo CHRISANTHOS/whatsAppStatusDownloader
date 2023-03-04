@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:flutter/material.dart';
@@ -48,11 +47,9 @@ class _ImageViewState extends State<ImageView> {
               onPressed: () {
                 switch (index) {
                   case 0:
-                    log('share');
                     FlutterNativeApi.shareImage(widget.image.path);
                     break;
                   case 1:
-                    log('download');
                     ImageGallerySaver.saveFile(widget.image.path)
                         .then((value) => {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -60,7 +57,6 @@ class _ImageViewState extends State<ImageView> {
                             });
                     break;
                   case 2:
-                    log('print');
                     FlutterNativeApi.printImage(
                         widget.image.path, widget.image.path.split('/').last);
                     break;

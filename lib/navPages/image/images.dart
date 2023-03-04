@@ -19,6 +19,7 @@ class _ImagePageState extends State<ImagePage> {
     super.initState();
     Provider.of<GetStatusModel>(context, listen: false).getStatus('.jpg');
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +32,7 @@ class _ImagePageState extends State<ImagePage> {
         }
         return file.isWhatsAppAvailable == false
             ? SafeArea(
-              child: Center(
+                child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -40,13 +41,19 @@ class _ImagePageState extends State<ImagePage> {
                         onPressed: () {
                           LaunchReview.launch(androidAppId: 'com.whatsapp');
                         },
-                        style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue)),
-                        child: const Text('Download now', style: TextStyle(color: Colors.white),),
+                        style: const ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.blue),
+                        ),
+                        child: const Text(
+                          'Download now',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       )
                     ],
                   ),
                 ),
-            )
+              )
             : file.getImages.isEmpty
                 ? const Center(
                     child: Text('No images found'),
